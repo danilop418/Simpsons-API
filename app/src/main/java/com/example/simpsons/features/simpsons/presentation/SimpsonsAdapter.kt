@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.domain.Simpson
+import com.example.superheroes.R
 
 class SimpsonAdapter : RecyclerView.Adapter<SimpsonAdapter.SimpsonViewHolder>() {
     private var lista: List<SimpsonUiModel> = emptyList()

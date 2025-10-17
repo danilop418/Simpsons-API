@@ -8,8 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import coil.load
-import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.domain.Simpson
+import com.example.superheroes.R
 
 class SimpsonDetailActivity : AppCompatActivity() {
     private lateinit var simpsonImage: ImageView

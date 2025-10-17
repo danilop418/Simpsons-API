@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Simpsons</string>
+    <string name="simpson_image_description">Imagen del personaje Simpson</string>
+    <string name="simpson_detail_image">Imagen detallada del personaje</string>
 </resources>
