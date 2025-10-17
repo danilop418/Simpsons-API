@@ -1,4 +1,8 @@
 package com.example.simpsons.features.simpsons.presentation
 
-class SimpsonsUiModel {
-}
+data class SimpsonUiModel(
+    val id: String,
+    val name: String,
+    val phrase: String,
+    val imageUrl: String
+)
