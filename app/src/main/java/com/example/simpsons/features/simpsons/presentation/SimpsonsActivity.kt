@@ -8,11 +8,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.data.SimpsonsDataRepository
 import com.example.simpsons.features.simpsons.data.core.api.ApiClient
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
 import com.example.simpsons.features.simpsons.domain.FetchSimpsonsUseCase
-import com.example.superheroes.R
 
 class SimpsonsActivity : AppCompatActivity() {
     private lateinit var adapter: SimpsonAdapter
