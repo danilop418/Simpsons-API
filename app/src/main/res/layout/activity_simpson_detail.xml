@@ -89,7 +89,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="💬 Frase Célebre"
+                        android:text="Frase Célebre"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#FFFFFF"
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="🌟 Detalles"
+                        android:text="Detalles"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#FDD835"

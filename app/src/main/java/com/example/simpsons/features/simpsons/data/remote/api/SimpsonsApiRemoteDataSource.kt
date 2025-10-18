@@ -20,8 +20,9 @@ class SimpsonsApiRemoteDataSource(private val apiClient: ApiClient) {
             Log.d("API_DEBUG", "Response code: ${response.code()}")
             Log.d("API_DEBUG", "Response message: ${response.message()}")
 
-            if (response.isSuccessful && response.body() != null) {
-                val characters = response.body()!!.docs
+            if (response.isSuccessful) {
+                val characters = response.body()!!.results
+
                 Log.d("API_DEBUG", "ÉXITO: ${characters.size} personajes")
                 Result.success(characters)
             } else {
