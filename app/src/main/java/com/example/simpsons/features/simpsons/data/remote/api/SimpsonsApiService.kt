@@ -6,7 +6,7 @@ import retrofit2.http.Path
 
 interface SimpsonsApiService {
     @GET("api/characters")
-    suspend fun findAll(): Response<List<SimpsonsApiModel>>
+    suspend fun findAll(): Response<SimpsonsApiResponse>
 
     @GET("api/characters/{id}")
     suspend fun findById(@Path("id") id: String): Response<SimpsonsApiModel>
