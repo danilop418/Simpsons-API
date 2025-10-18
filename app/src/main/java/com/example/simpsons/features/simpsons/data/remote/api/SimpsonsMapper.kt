@@ -4,9 +4,9 @@ import com.example.simpsons.features.simpsons.domain.Simpson
 
 fun SimpsonsApiModel.toModel(): Simpson {
     return Simpson(
-        this.id,
-        this.name,
-        this.phrase,
-        this.imageUrl
+        id = this.id.toString(),
+        name = this.name,
+        phrase = this.phrases.firstOrNull() ?: "",
+        imageUrl = "https://thesimpsonsapi.com${this.portraitPath}"
     )
 }
