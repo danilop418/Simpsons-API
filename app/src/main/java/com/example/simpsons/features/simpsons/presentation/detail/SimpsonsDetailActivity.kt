@@ -1,4 +1,4 @@
-package com.example.simpsons.features.simpsons.presentation
+package com.example.simpsons.features.simpsons.presentation.detail
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.domain.Simpson
+import com.example.simpsons.features.simpsons.presentation.SimpsonObserver
 
 class SimpsonDetailActivity : AppCompatActivity() {
     private lateinit var simpsonImage: ImageView

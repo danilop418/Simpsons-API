@@ -1,4 +1,4 @@
-package com.example.simpsons.features.simpsons.presentation
+package com.example.simpsons.features.simpsons.presentation.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
