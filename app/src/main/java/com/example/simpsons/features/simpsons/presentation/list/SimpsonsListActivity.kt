@@ -13,6 +13,7 @@ import com.example.simpsons.features.simpsons.data.SimpsonsDataRepository
 import com.example.simpsons.features.simpsons.data.core.api.ApiClient
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
 import com.example.simpsons.features.simpsons.domain.GetAllCharactersUseCase
+import com.example.simpsons.features.simpsons.presentation.SimpsonsAdapter
 
 class SimpsonsListActivity : AppCompatActivity() {
 
