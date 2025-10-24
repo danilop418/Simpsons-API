@@ -12,12 +12,13 @@ import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.data.SimpsonsDataRepository
 import com.example.simpsons.features.simpsons.data.core.api.ApiClient
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
-import com.example.simpsons.features.simpsons.domain.FetchSimpsonsUseCase
+import com.example.simpsons.features.simpsons.domain.GetAllCharactersUseCase
+import com.example.simpsons.features.simpsons.presentation.SimpsonsAdapter
 
 class SimpsonsListActivity : AppCompatActivity() {
 
     private val viewModel = SimpsonsListViewModel(
-        FetchSimpsonsUseCase(
+        GetAllCharactersUseCase(
             SimpsonsDataRepository(
                 SimpsonsApiRemoteDataSource(ApiClient())
             )

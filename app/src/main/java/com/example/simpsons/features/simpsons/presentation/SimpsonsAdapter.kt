@@ -1,4 +1,4 @@
-package com.example.simpsons.features.simpsons.presentation.list
+package com.example.simpsons.features.simpsons.presentation
 
 import android.view.LayoutInflater
 import android.view.View

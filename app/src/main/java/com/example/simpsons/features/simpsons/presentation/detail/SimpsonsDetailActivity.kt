@@ -1,53 +1,42 @@
 package com.example.simpsons.features.simpsons.presentation.detail
 
-import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import coil.load
-import com.example.simpsons.R
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.simpsons.features.simpsons.domain.ErrorApp
+import com.example.simpsons.features.simpsons.domain.GetSimpsonByIdUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
-import com.example.simpsons.features.simpsons.presentation.SimpsonObserver
+import kotlinx.coroutines.launch
 
-class SimpsonDetailActivity : AppCompatActivity() {
-    private lateinit var simpsonImage: ImageView
-    private lateinit var simpsonName: TextView
-    private lateinit var simpsonPhrase: TextView
+class SimpsonDetailViewModel(
+    private val simpsonId: String,
+    private val getSimpsonByIdUseCase: GetSimpsonByIdUseCase
+) : ViewModel() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_simpson_detail)
+    private val _simpson = MutableLiveData<Simpson?>()
+    val simpson: LiveData<Simpson?> = _simpson
 
-        simpsonImage = findViewById(R.id.simpsonImage)
-        simpsonName = findViewById(R.id.simpsonName)
-        simpsonPhrase = findViewById(R.id.simpsonPhrase)
+    private val _error = MutableLiveData<ErrorApp?>()
+    val error: LiveData<ErrorApp?> = _error
 
-        SimpsonObserver.selectedSimpson.observe(this, Observer { simpson ->
-            if (simpson != null) {
-                bindSimpson(simpson)
-            } else {
-                Toast.makeText(this, "No hay personaje seleccionado", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        })
+    init {
+        loadSimpson()
     }
 
-    private fun bindSimpson(simpson: Simpson) {
-        simpsonName.text = simpson.name
-        simpsonPhrase.text = simpson.phrase
-        simpsonImage.load(simpson.imageUrl) {
-            crossfade(true)
-            placeholder(R.drawable.ic_launcher_background)
-            error(R.drawable.ic_launcher_foreground)
+    private fun loadSimpson() {
+        viewModelScope.launch {
+            val result = getSimpsonByIdUseCase.invoke(simpsonId)
+            result.fold(
+                onSuccess = { simpson ->
+                    _simpson.postValue(simpson)
+                    _error.postValue(null)
+                },
+                onFailure = { exception ->
+                    _error.postValue(exception as? ErrorApp ?: ErrorApp.ServerErrorApp)
+                    _simpson.postValue(null)
+                }
+            )
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        SimpsonObserver.clear()
     }
 }
