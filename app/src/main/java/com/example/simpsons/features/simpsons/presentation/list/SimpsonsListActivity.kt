@@ -50,8 +50,8 @@ class SimpsonsListActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        val observer = Observer<SimpsonsListViewModel.UiState>{ uiState ->
-            if (uiState.isLoading){
+        val observer = Observer<SimpsonsListViewModel.UiState> { uiState ->
+            if (uiState.isLoading) {
                 Log.d("@dev", "cargando")
             }
 

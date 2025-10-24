@@ -8,7 +8,8 @@ import com.example.simpsons.features.simpsons.domain.ErrorApp
 import com.example.simpsons.features.simpsons.domain.GetAllCharactersUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
 import kotlinx.coroutines.launch
-class SimpsonsListViewModel(val getAll: GetAllCharactersUseCase):ViewModel() {
+
+class SimpsonsListViewModel(val getAll: GetAllCharactersUseCase) : ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> = _uiState
