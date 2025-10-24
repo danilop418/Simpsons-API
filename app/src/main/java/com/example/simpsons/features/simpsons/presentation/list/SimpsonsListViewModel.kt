@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.simpsons.features.simpsons.domain.ErrorApp
-import com.example.simpsons.features.simpsons.domain.FetchSimpsonsUseCase
+import com.example.simpsons.features.simpsons.domain.GetAllCharactersUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
 import kotlinx.coroutines.launch
-class SimpsonsListViewModel(val getAll: FetchSimpsonsUseCase):ViewModel() {
+class SimpsonsListViewModel(val getAll: GetAllCharactersUseCase):ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> = _uiState
@@ -33,4 +33,5 @@ class SimpsonsListViewModel(val getAll: FetchSimpsonsUseCase):ViewModel() {
         val isLoading: Boolean = false,
         val simpsons: List<Simpson>? = null
     )
+}
 
