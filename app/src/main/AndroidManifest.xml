@@ -18,7 +18,7 @@
         android:theme="@style/Theme.Simpsons">
 
         <activity
-            android:name="com.example.simpsons.features.simpsons.presentation.list.SimpsonsActivity"
+            android:name="com.example.simpsons.features.simpsons.presentation.list.SimpsonsListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,12 +27,12 @@
         </activity>
 
         <activity
-            android:name="com.example.simpsons.features.simpsons.presentation.detail.SimpsonDetailActivity"
+            android:name="com.example.simpsons.features.simpsons.presentation.detail.SimpsonsDetailActivity"
             android:exported="false"
-            android:parentActivityName="com.example.simpsons.features.simpsons.presentation.list.SimpsonsActivity">
+            android:parentActivityName="com.example.simpsons.features.simpsons.presentation.list.SimpsonsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.simpsons.features.simpsons.presentation.list.SimpsonsActivity" />
+                android:value="com.example.simpsons.features.simpsons.presentation.list.SimpsonsListActivity" />
         </activity>
 
     </application>

@@ -9,7 +9,7 @@ import com.example.simpsons.features.simpsons.domain.GetSimpsonByIdUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
 import kotlinx.coroutines.launch
 
-class SimpsonDetailViewModel(
+class SimpsonsDetailActivity(
     private val simpsonId: String,
     private val getSimpsonByIdUseCase: GetSimpsonByIdUseCase
 ) : ViewModel() {
