@@ -1,5 +1,6 @@
 package com.example.simpsons.features.simpsons.presentation.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +15,7 @@ import com.example.simpsons.features.simpsons.data.core.api.ApiClient
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
 import com.example.simpsons.features.simpsons.domain.GetAllCharactersUseCase
 import com.example.simpsons.features.simpsons.presentation.SimpsonsAdapter
+import com.example.simpsons.features.simpsons.presentation.detail.SimpsonsDetailActivity
 
 class SimpsonsListActivity : AppCompatActivity() {
 
@@ -45,7 +47,11 @@ class SimpsonsListActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         recyclerView = findViewById(R.id.simpsonRecyclerView)
-        adapter = SimpsonsAdapter()
+        adapter = SimpsonsAdapter { simpson ->
+            val intent = Intent(this, SimpsonsDetailActivity::class.java)
+            intent.putExtra("SIMPSON_ID", simpson.id)
+            startActivity(intent)
+        }
         recyclerView.adapter = adapter
     }
 
