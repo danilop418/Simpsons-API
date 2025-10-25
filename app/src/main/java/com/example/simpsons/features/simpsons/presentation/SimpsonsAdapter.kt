@@ -10,7 +10,7 @@ import coil.load
 import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.domain.Simpson
 
-class SimpsonsAdapter : RecyclerView.Adapter<SimpsonsAdapter.SimpsonsViewHolder>() {
+class SimpsonsAdapter (private val onItemClick: (Simpson) -> Unit): RecyclerView.Adapter<SimpsonsAdapter.SimpsonsViewHolder>() {
 
     private var simpsons: List<Simpson> = emptyList()
 
@@ -22,7 +22,7 @@ class SimpsonsAdapter : RecyclerView.Adapter<SimpsonsAdapter.SimpsonsViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpsonsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_simpson, parent, false)
-        return SimpsonsViewHolder(view)
+        return SimpsonsViewHolder(view,onItemClick)
     }
 
     override fun onBindViewHolder(holder: SimpsonsViewHolder, position: Int) {
@@ -31,7 +31,7 @@ class SimpsonsAdapter : RecyclerView.Adapter<SimpsonsAdapter.SimpsonsViewHolder>
 
     override fun getItemCount(): Int = simpsons.size
 
-    inner class SimpsonsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class SimpsonsViewHolder(itemView: View, private val onItemClick: (Simpson) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.simpson_name)
         private val phraseTextView: TextView = itemView.findViewById(R.id.simpson_phrase)
         private val imageView: ImageView = itemView.findViewById(R.id.simpson_image)
@@ -43,11 +43,10 @@ class SimpsonsAdapter : RecyclerView.Adapter<SimpsonsAdapter.SimpsonsViewHolder>
 
             imageView.load(simpsons.imageUrl) {
                 crossfade(true)
-                placeholder(R.drawable.)
             }
 
             itemView.setOnClickListener {
-                onItemClick(simpson)
+                onItemClick(simpsons)
             }
         }
     }
