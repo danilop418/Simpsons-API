@@ -2,11 +2,14 @@ package com.example.simpsons.features.simpsons.presentation.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import coil.load
 import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.data.SimpsonsDataRepository
 import com.example.simpsons.features.simpsons.data.core.api.ApiClient
@@ -50,6 +53,13 @@ class SimpsonsDetailActivity : AppCompatActivity() {
 
             uiState.simpson?.let { simpson ->
                 Log.d("@dev", "Personaje detalle: ${simpson.name}")
+                findViewById<TextView>(R.id.simpsonName).text = simpson.name
+                findViewById<TextView>(R.id.simpsonPhrase).text = simpson.phrase
+
+                val imageView = findViewById<ImageView>(R.id.simpsonImage)
+                imageView.load(simpson.imageUrl) {
+                    crossfade(true)
+                }
             }
         }
         viewModel.uiState.observe(this, observer)
