@@ -1,9 +1,13 @@
 package com.example.simpsons.features.simpsons.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
 import com.example.simpsons.features.simpsons.data.remote.api.toModel
 import com.example.simpsons.features.simpsons.domain.Simpson
 import com.example.simpsons.features.simpsons.domain.SimpsonsRepository
+import kotlinx.coroutines.flow.Flow
 
 class SimpsonsDataRepository(
     private val apiRemoteDataSource: SimpsonsApiRemoteDataSource
@@ -19,5 +23,17 @@ class SimpsonsDataRepository(
         return apiRemoteDataSource.getSimpsonById(id).map { apiModel ->
             apiModel.toModel()
         }
+    }
+
+    override suspend fun getSearchResultStream(query: String): Flow<PagingData<Simpson>> {
+        return Pager(
+            config = PagingConfig(pageSize = 50),
+            pagingSourceFactory = {
+                SimpsonsPagingSource(
+                    service = apiRemoteDataSource.getSimpsons()
+                            query = query
+                )
+            }
+        ).flow
     }
 }

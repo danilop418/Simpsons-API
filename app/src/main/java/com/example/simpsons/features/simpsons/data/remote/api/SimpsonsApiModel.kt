@@ -15,7 +15,6 @@ data class SimpsonsApiModel(
 
     @SerializedName("portrait_path")
     val portraitPath: String,
-
     val phrases: List<String>
 )
 
