@@ -1,152 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FDD835">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#D84315"
-        android:elevation="8dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Personaje"
-        app:titleTextColor="#FFFFFF" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:background="#FDD835"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="56dp"
+            android:background="#D84315"
+            android:elevation="8dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Personaje"
+            app:titleTextColor="#FFFFFF" />
 
-            <androidx.cardview.widget.CardView
+        <ScrollView
+            android:id="@+id/contentScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="16dp"
-                app:cardBackgroundColor="#1565C0">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <FrameLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#1565C0">
+                    android:layout_height="350dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#1565C0"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="16dp">
 
-                    <ImageView
-                        android:id="@+id/simpsonImage"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerInside"
-                        android:contentDescription="@string/simpson_detail_image" />
+                        android:background="#1565C0">
 
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top|end"
-                        android:background="@drawable/shine_effect" />
-                </FrameLayout>
-            </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/simpsonImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/simpson_detail_image"
+                            android:scaleType="centerInside" />
 
-            <TextView
-                android:id="@+id/simpsonName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textSize="42sp"
-                android:textStyle="bold"
-                android:textColor="#D84315"
-                android:gravity="center"
-                android:fontFamily="sans-serif-black"
-                android:shadowColor="#1565C0"
-                android:shadowDx="2"
-                android:shadowDy="2"
-                android:shadowRadius="3"
-                android:layout_marginBottom="24dp" />
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top|end"
+                            android:background="@drawable/shine_effect" />
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/simpsonName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:background="#F57F17">
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:shadowColor="#1565C0"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="3"
+                    android:text="@string/simpson_detail_name_placeholder"
+                    android:textColor="#D84315"
+                    android:textSize="42sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Frase Célebre"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_marginBottom="12dp" />
-
-                    <TextView
-                        android:id="@+id/simpsonPhrase"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Frase célebre del personaje"
-                        android:textSize="18sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="italic"
-                        android:gravity="center"
-                        android:fontFamily="sans-serif-condensed-medium"
-                        android:lineSpacingExtra="6dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:background="#1565C0">
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Detalles"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#FDD835"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_marginBottom="12dp" />
+                        android:background="#F57F17"
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                    <TextView
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/simpson_detail_phrase_title"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/simpsonPhrase"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:gravity="center"
+                            android:lineSpacingExtra="6dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personaje de la serie Los Simpsons\nDesde 1989 en pantalla\n¡Un ícono de la animación!"
-                        android:textSize="14sp"
-                        android:textColor="#FFFFFF"
-                        android:fontFamily="sans-serif-condensed"
-                        android:lineSpacingExtra="4dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:background="#1565C0"
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-        </LinearLayout>
-    </ScrollView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/simpson_detail_details_title"
+                            android:textColor="#FDD835"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-</LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loadingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="#D84315" />
+
+    </FrameLayout>
+
+</FrameLayout>

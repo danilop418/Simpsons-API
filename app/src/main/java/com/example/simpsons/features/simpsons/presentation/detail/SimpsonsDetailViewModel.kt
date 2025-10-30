@@ -8,6 +8,8 @@ import com.example.simpsons.features.simpsons.domain.ErrorApp
 import com.example.simpsons.features.simpsons.domain.GetSimpsonByIdUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.net.UnknownHostException
 
 class SimpsonsDetailViewModel(val getById: GetSimpsonByIdUseCase) : ViewModel() {
 
@@ -17,7 +19,16 @@ class SimpsonsDetailViewModel(val getById: GetSimpsonByIdUseCase) : ViewModel() 
     fun loadSimpson(id: String) {
         viewModelScope.launch {
             _uiState.value = UiState(isLoading = true)
-            getById(id).fold({ onSuccess(it) }, { onError(it as ErrorApp) })
+            try {
+                getById(id).fold(
+                    { onSuccess(it) },
+                    { onError(it as ErrorApp) }
+                )
+            } catch (e: IOException) {
+                onError(ErrorApp.InternetConexionError)
+            } catch (e: UnknownHostException) {
+                onError(ErrorApp.ServerErrorApp)
+            }
         }
     }
 

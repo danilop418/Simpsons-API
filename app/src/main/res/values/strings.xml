@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Simpsons</string>
     <string name="simpson_image_description">Imagen del personaje Simpson</string>
-    <string name="simpson_detail_image">Imagen detallada del personaje</string>
+    <string name="simpson_detail_toolbar_title">Personaje</string>
+    <string name="simpson_detail_image">Imagen del personaje</string>
+    <string name="simpson_detail_name_placeholder">Nombre</string>
+    <string name="simpson_detail_phrase_title">Frase Célebre</string>
+    <string name="simpson_detail_phrase_placeholder">Frase célebre del personaje</string>
+    <string name="simpson_detail_details_title">Detalles</string>
 </resources>
