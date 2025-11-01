@@ -1,4 +1,4 @@
-package com.example.simpsons.features.simpsons.data.core.api
+package com.example.simpsons.features.simpsons.core.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpsons.R
 import com.example.simpsons.features.simpsons.domain.Simpson
+import coil.load
 
 class SimpsonsAdapter(private val dataset: List<Simpson>) :
     RecyclerView.Adapter<SimpsonsAdapter.ViewHolder>() {
@@ -16,9 +17,9 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
         val tvPhrase: TextView
 
         init {
-            ivImage = view.findViewById(R.id.simpson_image)
-            tvName = view.findViewById(R.id.simpson_name)
-            tvPhrase = view.findViewById(R.id.simpson_phrase)
+            ivImage = view.findViewById(R.id.simpsonImage)
+            tvName = view.findViewById(R.id.simpsonName)
+            tvPhrase = view.findViewById(R.id.simpsonPhrase)
         }
     }
 
@@ -27,7 +28,7 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
         viewType: Int
     ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_simpson, parent, false)
+            .inflate(R.layout.character_card, parent, false)
         return ViewHolder(view)
     }
 
@@ -38,6 +39,10 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
         holder.tvName.text = dataset[position].name
         holder.tvPhrase.text = dataset[position].phrase
         holder.ivImage.contentDescription = dataset[position].imageUrl
+
+        holder.ivImage.load(dataset[position].imageUrl) {
+            crossfade(true)
+        }
     }
 
     override fun getItemCount() = dataset.size
