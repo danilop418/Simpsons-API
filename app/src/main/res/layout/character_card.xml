@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/ccIvCharacter"
+            android:id="@+id/ivImage"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:layout_width="150dp"
@@ -26,31 +26,23 @@
             android:layout_marginTop="20sp"
             android:padding="15dp">
             <TextView
-                android:id="@+id/ccTvName"
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Name"
+                tools:text="Nombre"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/md_theme_onPrimaryContainer"
                 />
             <TextView
-                android:id="@+id/ccTvOccupation"
+                android:id="@+id/tvPhrase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Occupation"
+                tools:text="Frase celebre"
                 android:textSize="18sp"
                 android:textColor="@color/md_theme_onPrimaryContainer"
                 android:maxLines="1"
                 android:ellipsize="end"
-                />
-            <TextView
-                android:id="@+id/ccTvStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Status"
-                android:textSize="18sp"
-                android:textColor="@color/md_theme_onPrimaryContainer"
                 />
         </LinearLayout>
 

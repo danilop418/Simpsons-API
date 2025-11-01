@@ -17,9 +17,9 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
         val tvPhrase: TextView
 
         init {
-            ivImage = view.findViewById(R.id.simpsonImage)
-            tvName = view.findViewById(R.id.simpsonName)
-            tvPhrase = view.findViewById(R.id.simpsonPhrase)
+            ivImage = view.findViewById(R.id.ivImage)
+            tvName = view.findViewById(R.id.tvName)
+            tvPhrase = view.findViewById(R.id.tvPhrase)
         }
     }
 
@@ -36,11 +36,12 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
         holder: ViewHolder,
         position: Int
     ) {
-        holder.tvName.text = dataset[position].name
-        holder.tvPhrase.text = dataset[position].phrase
-        holder.ivImage.contentDescription = dataset[position].imageUrl
+        val item = dataset[position]
+        holder.tvName.text = item.name
+        holder.tvPhrase.text = item.phrase
+        holder.ivImage.contentDescription = item.imageUrl
 
-        holder.ivImage.load(dataset[position].imageUrl) {
+        holder.ivImage.load(item.imageUrl) {
             crossfade(true)
         }
     }
