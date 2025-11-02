@@ -14,12 +14,10 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivImage : ImageView
         val tvName : TextView
-        val tvPhrase: TextView
 
         init {
-            ivImage = view.findViewById(R.id.ivImage)
-            tvName = view.findViewById(R.id.tvName)
-            tvPhrase = view.findViewById(R.id.tvPhrase)
+            ivImage = view.findViewById(R.id.image)
+            tvName = view.findViewById(R.id.name)
         }
     }
 
@@ -28,7 +26,7 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
         viewType: Int
     ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.character_card, parent, false)
+            .inflate(R.layout.view_simpsons_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -38,7 +36,6 @@ class SimpsonsAdapter(private val dataset: List<Simpson>) :
     ) {
         val item = dataset[position]
         holder.tvName.text = item.name
-        holder.tvPhrase.text = item.phrase
         holder.ivImage.contentDescription = item.imageUrl
 
         holder.ivImage.load(item.imageUrl) {
