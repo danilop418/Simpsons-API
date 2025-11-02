@@ -31,7 +31,7 @@ class SimpsonsListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_simpsons_list, container, false)
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,7 +90,7 @@ class SimpsonsListFragment : Fragment() {
 
     private fun setUpRecyclerView(simpsonsList: List<Simpson>) {
         val adapter = SimpsonsAdapter(simpsonsList)
-        val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerview)
+        val recyclerView: RecyclerView = requireView().findViewById(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
