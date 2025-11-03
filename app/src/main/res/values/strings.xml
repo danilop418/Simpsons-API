@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Simpsons</string>
-    <string name="simpson_image_description">Imagen del personaje Simpson</string>
-    <string name="simpson_detail_image">Imagen detallada del personaje</string>
+    <string name="retry">Reintentar</string>
+    <string name="simpson_detail_phrase_title">Frase característica</string>
+    <string name="simpson_detail_details_title">Detalles</string>
+    <string name="simpson_detail_image">Imagen del personaje</string>
+    <string name="error_icon">Icono de error</string>
+    <string name="error_server">Error del servidor\nIntentelo más tarde</string>
+    <string name="error_network">Error de red\nRevise su conexión a internet</string>
+    <string name="retry_button">Reintentar</string>
 </resources>

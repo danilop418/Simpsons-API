@@ -1,7 +1,7 @@
 package com.example.simpsons.features.simpsons.data.remote.api
 
 import android.util.Log
-import com.example.simpsons.features.simpsons.data.core.api.ApiClient
+import com.example.simpsons.features.simpsons.core.api.ApiClient
 import com.example.simpsons.features.simpsons.domain.ErrorApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

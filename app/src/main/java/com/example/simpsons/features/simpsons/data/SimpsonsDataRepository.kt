@@ -9,13 +9,13 @@ class SimpsonsDataRepository(
     private val apiRemoteDataSource: SimpsonsApiRemoteDataSource
 ) : SimpsonsRepository {
 
-    override suspend fun fetch(): Result<List<Simpson>> {
+    override suspend fun findAll(): Result<List<Simpson>> {
         return apiRemoteDataSource.getSimpsons().map { apiModelsList ->
             apiModelsList.map { apiModel -> apiModel.toModel() }
         }
     }
 
-    override suspend fun getSimpsonById(id: String): Result<Simpson> {
+    override suspend fun findById(id: String): Result<Simpson> {
         return apiRemoteDataSource.getSimpsonById(id).map { apiModel ->
             apiModel.toModel()
         }
