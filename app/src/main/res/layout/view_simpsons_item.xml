@@ -25,6 +25,9 @@
         android:layout_height="120dp"
         android:scaleType="centerCrop"
         android:textSize="18sp"
+        android:textColor="?attr/colorOnSurface"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
         tools:text="Superman"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
