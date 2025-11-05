@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/initializationFragment">
+
+    <fragment
+        android:id="@+id/initializationFragment"
+        android:name="com.example.simpsons.features.simpsons.presentation.initialization.InitializationFragment"
+        android:label="InitializationFragment"
+        tools:layout="@layout/fragment_initialization" >
+        <action
+            android:id="@+id/action_initializationFragment_to_simpsonsListFragment"
+            app:destination="@id/simpsonsListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/simpsonsListFragment"
+        android:name="com.example.simpsons.features.simpsons.presentation.list.SimpsonsListFragment"
+        android:label="SimpsonsListFragment"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_simpsonsListFragment_to_simpsonsDetailFragment"
+            app:destination="@id/simpsonsDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/simpsonsDetailFragment"
+        android:name="com.example.simpsons.features.simpsons.presentation.detail.SimpsonsDetailFragment"
+        android:label="SimpsonsDetailFragment"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="simpsonId"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.simpsons.R
 import com.example.simpsons.databinding.FragmentDetailBinding
@@ -21,6 +22,8 @@ class SimpsonsDetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
+    private val args: SimpsonsDetailFragmentArgs by navArgs()
 
     private val viewModel = SimpsonsDetailViewModel(
         GetSimpsonByIdUseCase(
@@ -44,11 +47,7 @@ class SimpsonsDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObserver()
-        viewModel.loadSimpson(getSimpsonId())
-    }
-
-    private fun getSimpsonId(): String {
-        return arguments?.getString("SIMPSON_ID") ?: ""
+        viewModel.loadSimpson(args.simpsonId)
     }
 
     private fun setUpObserver() {
@@ -68,7 +67,7 @@ class SimpsonsDetailFragment : Fragment() {
 
                 binding.errorView.visibility = View.VISIBLE
                 binding.retry.setOnClickListener {
-                    viewModel.loadSimpson(getSimpsonId())
+                    viewModel.loadSimpson(args.simpsonId)
                 }
             } else {
                 binding.errorView.visibility = View.GONE
