@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simpsons.R
 import com.example.simpsons.databinding.FragmentListBinding
@@ -16,8 +17,6 @@ import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteD
 import com.example.simpsons.features.simpsons.domain.ErrorApp
 import com.example.simpsons.features.simpsons.domain.FetchSimpsonsUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
-import com.example.simpsons.features.simpsons.presentation.detail.SimpsonsDetailFragment
-import androidx.fragment.app.commit
 
 class SimpsonsListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
@@ -88,16 +87,7 @@ class SimpsonsListFragment : Fragment() {
     }
 
     private fun navigateToDetail(simpsonId: String) {
-        val fragment = SimpsonsDetailFragment().apply {
-            arguments = Bundle().apply {
-                putString("SIMPSON_ID", simpsonId)
-            }
-        }
-
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace(R.id.fragment_container, fragment)
-            addToBackStack(null)
-        }
+        val action = SimpsonsListFragmentDirections.actionSimpsonsListFragmentToSimpsonsDetailFragment(simpsonId)
+        findNavController().navigate(action)
     }
 }
