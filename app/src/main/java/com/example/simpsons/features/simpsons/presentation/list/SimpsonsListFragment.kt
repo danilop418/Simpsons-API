@@ -9,33 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.simpsons.R
 import com.example.simpsons.databinding.FragmentListBinding
 import com.example.simpsons.features.simpsons.core.api.ApiClient
 import com.example.simpsons.features.simpsons.data.SimpsonsDataRepository
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
-import com.example.simpsons.features.simpsons.domain.ErrorApp
 import com.example.simpsons.features.simpsons.domain.FetchSimpsonsUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
 
 class SimpsonsListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUpObserver()
-        viewModel.loadSimpsons()
-    }
 
     private val viewModel = SimpsonsListViewModel(
         FetchSimpsonsUseCase(
@@ -47,30 +30,39 @@ class SimpsonsListFragment : Fragment() {
         )
     )
 
-    private fun setUpObserver(){
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpObserver()
+        viewModel.loadSimpsons()
+    }
+
+    private fun setUpObserver() {
         val observer = Observer<SimpsonsListViewModel.UiState> { uiState ->
-
-            binding.progressBar.visibility = if (uiState.isLoading) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-
-            if (uiState.error != null) {
-                binding.errorText.text = when (uiState.error) {
-                    ErrorApp.ServerErrorApp -> getString(R.string.error_server)
-                    ErrorApp.InternetConexionError -> getString(R.string.error_network)
-                }
-
+            if (uiState.isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.recycler.visibility = View.GONE
+                binding.errorView.visibility = View.GONE
+            } else if (uiState.error != null) {
+                binding.progressBar.visibility = View.GONE
+                binding.recycler.visibility = View.GONE
                 binding.errorView.visibility = View.VISIBLE
                 binding.retry.setOnClickListener {
                     viewModel.loadSimpsons()
                 }
-            } else {
+            } else if (uiState.simpsons != null) {
+                binding.progressBar.visibility = View.GONE
                 binding.errorView.visibility = View.GONE
-            }
-            uiState.simpsons?.let {
-                setUpRecyclerView(it)
+                binding.recycler.visibility = View.VISIBLE
+                setUpRecyclerView(uiState.simpsons)
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
@@ -80,7 +72,7 @@ class SimpsonsListFragment : Fragment() {
         val adapter = SimpsonsAdapter(simpsonsList) { simpson ->
             navigateToDetail(simpson.id)
         }
-        binding.list.apply {
+        binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
@@ -89,5 +81,10 @@ class SimpsonsListFragment : Fragment() {
     private fun navigateToDetail(simpsonId: String) {
         val action = SimpsonsListFragmentDirections.actionSimpsonsListFragmentToSimpsonsDetailFragment(simpsonId)
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
