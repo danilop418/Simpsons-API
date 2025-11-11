@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.simpsons.R
 import com.example.simpsons.databinding.FragmentDetailBinding
 import com.example.simpsons.features.simpsons.core.api.ApiClient
 import com.example.simpsons.features.simpsons.data.SimpsonsDataRepository
 import com.example.simpsons.features.simpsons.data.remote.api.SimpsonsApiRemoteDataSource
-import com.example.simpsons.features.simpsons.domain.ErrorApp
 import com.example.simpsons.features.simpsons.domain.GetSimpsonByIdUseCase
 import com.example.simpsons.features.simpsons.domain.Simpson
 
@@ -52,30 +50,22 @@ class SimpsonsDetailFragment : Fragment() {
 
     private fun setUpObserver() {
         val observer = Observer<SimpsonsDetailViewModel.UiState> { uiState ->
-
-            binding.progressBar.visibility = if (uiState.isLoading) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-
-            if (uiState.error != null) {
-                binding.errorText.text = when (uiState.error) {
-                    ErrorApp.ServerErrorApp -> getString(R.string.error_server)
-                    ErrorApp.InternetConexionError -> getString(R.string.error_network)
-                }
-
+            if (uiState.isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.detailContent.visibility = View.GONE
+                binding.errorView.visibility = View.GONE
+            } else if (uiState.error != null) {
+                binding.progressBar.visibility = View.GONE
+                binding.detailContent.visibility = View.GONE
                 binding.errorView.visibility = View.VISIBLE
                 binding.retry.setOnClickListener {
                     viewModel.loadSimpson(args.simpsonId)
                 }
-            } else {
+            } else if (uiState.simpson != null) {
+                binding.progressBar.visibility = View.GONE
                 binding.errorView.visibility = View.GONE
-            }
-
-
-            uiState.simpson?.let { simpson ->
-                showSimpsonDetail(simpson)
+                binding.detailContent.visibility = View.VISIBLE
+                showSimpsonDetail(uiState.simpson)
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)

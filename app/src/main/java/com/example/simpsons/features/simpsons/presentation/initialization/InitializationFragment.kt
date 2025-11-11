@@ -33,4 +33,9 @@ class InitializationFragment : Fragment() {
             InitializationFragmentDirections.actionInitializationFragmentToSimpsonsListFragment()
         findNavController().navigate(directions)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
