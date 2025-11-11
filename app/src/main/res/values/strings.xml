@@ -8,4 +8,7 @@
     <string name="error_server">Error del servidor\nIntentelo más tarde</string>
     <string name="error_network">Error de red\nRevise su conexión a internet</string>
     <string name="retry_button">Reintentar</string>
+    <string name="pincha_el_rosco">Pincha el rosco</string>
+    <string name="detail_name_label">Name:</string>
+    <string name="detail_phrase_label">Phrase:</string>
 </resources>
