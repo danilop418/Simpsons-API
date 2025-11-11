@@ -20,7 +20,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="2"
-        android:text="The Simpsons App"
+        android:text="@string/the_simpsons_app"
         android:textAllCaps="true"
         android:textColor="#FDD835"
         android:textSize="55sp"
