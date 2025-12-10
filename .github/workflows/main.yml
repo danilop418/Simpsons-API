@@ -37,7 +37,7 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       run: |
         sonar-scanner \
-          -Dsonar.projectKey=<miProyecto> \
+          -Dsonar.projectKey=miProyecto \
           -Dsonar.sources=. \
-          -Dsonar.host.url=<http://192.168.18.198:9000> \
-          -Dsonar.login=<sqp_a8d71c2a721b221b129e124f93e7be8ee61b126c>
+          -Dsonar.host.url=http://192.168.18.198:9000 \
+          -Dsonar.login=sqp_a8d71c2a721b221b129e124f93e7be8ee61b126c
