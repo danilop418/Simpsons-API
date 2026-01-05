@@ -1,5 +1,7 @@
 package com.example.simpsons.features.data
 
+import com.example.simpsons.features.data.local.mem.SimpsonsMemLocalDataSource
+import com.example.simpsons.features.data.local.xml.SimpsonsXmlLocalDataSource
 import com.example.simpsons.features.data.remote.api.SimpsonsApiRemoteDataSource
 import com.example.simpsons.features.data.remote.api.toModel
 import com.example.simpsons.features.domain.Simpson
@@ -8,12 +10,28 @@ import org.koin.core.annotation.Single
 
 @Single
 class SimpsonsDataRepository(
+    private val memLocalDataSource: SimpsonsMemLocalDataSource,
+    private val xmlLocalDataSource: SimpsonsXmlLocalDataSource,
     private val apiRemoteDataSource: SimpsonsApiRemoteDataSource
 ) : SimpsonsRepository {
 
     override suspend fun findAll(): Result<List<Simpson>> {
+        val memResult = memLocalDataSource.obtain()
+        if (memResult.isSuccess && memResult.getOrNull()?.isNotEmpty() == true) {
+            return memResult
+        }
+
+        val xmlResult = xmlLocalDataSource.findAll()
+        if (xmlResult.isSuccess && xmlResult.getOrNull()?.isNotEmpty() == true) {
+            memLocalDataSource.save(xmlResult.getOrNull()!!)
+            return xmlResult
+        }
+
         return apiRemoteDataSource.getSimpsons().map { apiModelsList ->
-            apiModelsList.map { apiModel -> apiModel.toModel() }
+            val simpsons = apiModelsList.map { apiModel -> apiModel.toModel() }
+            memLocalDataSource.save(simpsons)
+            xmlLocalDataSource.save(simpsons)
+            simpsons
         }
     }
 

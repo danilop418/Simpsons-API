@@ -6,4 +6,5 @@ sealed class ErrorApp: Throwable() {
 
     object ServerErrorApp : ErrorApp()
 
+    object CacheError : ErrorApp()
 }

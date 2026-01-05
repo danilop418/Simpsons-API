@@ -10,25 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simpsons.databinding.FragmentListBinding
-import com.example.simpsons.core.api.ApiClient
-import com.example.simpsons.features.data.SimpsonsDataRepository
-import com.example.simpsons.features.data.remote.api.SimpsonsApiRemoteDataSource
-import com.example.simpsons.features.domain.usecases.FetchSimpsonsUseCase
 import com.example.simpsons.features.domain.Simpson
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SimpsonsListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel = SimpsonsListViewModel(
-        FetchSimpsonsUseCase(
-            SimpsonsDataRepository(
-                SimpsonsApiRemoteDataSource(
-                    ApiClient()
-                )
-            )
-        )
-    )
+    private val viewModel: SimpsonsListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
