@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -37,6 +38,10 @@ android {
     buildFeatures{
         viewBinding = true
     }
+
+    sourceSets.getByName("main") {
+        java.srcDir("build/generated/ksp/main/kotlin")
+    }
 }
 
 dependencies {
@@ -59,4 +64,9 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.annotations)
+    ksp(libs.koin.ksp.compiler)
 }
