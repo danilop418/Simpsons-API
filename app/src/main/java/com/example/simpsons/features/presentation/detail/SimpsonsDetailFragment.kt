@@ -9,11 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.simpsons.databinding.FragmentDetailBinding
-import com.example.simpsons.core.api.ApiClient
-import com.example.simpsons.features.data.SimpsonsDataRepository
-import com.example.simpsons.features.data.remote.api.SimpsonsApiRemoteDataSource
-import com.example.simpsons.features.domain.usecases.GetSimpsonByIdUseCase
 import com.example.simpsons.features.domain.Simpson
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SimpsonsDetailFragment : Fragment() {
 
@@ -22,15 +19,7 @@ class SimpsonsDetailFragment : Fragment() {
 
     private val args: SimpsonsDetailFragmentArgs by navArgs()
 
-    private val viewModel = SimpsonsDetailViewModel(
-        GetSimpsonByIdUseCase(
-            SimpsonsDataRepository(
-                SimpsonsApiRemoteDataSource(
-                    ApiClient()
-                )
-            )
-        )
-    )
+    private val viewModel: SimpsonsDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
