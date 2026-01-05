@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/initializationFragment"
-        android:name="com.example.simpsons.features.simpsons.presentation.initialization.InitializationFragment"
+        android:name="com.example.simpsons.features.presentation.initialization.InitializationFragment"
         android:label="InitializationFragment"
         tools:layout="@layout/fragment_initialization" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/simpsonsListFragment"
-        android:name="com.example.simpsons.features.simpsons.presentation.list.SimpsonsListFragment"
+        android:name="com.example.simpsons.features.presentation.list.SimpsonsListFragment"
         android:label="SimpsonsListFragment"
         tools:layout="@layout/fragment_list" >
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/simpsonsDetailFragment"
-        android:name="com.example.simpsons.features.simpsons.presentation.detail.SimpsonsDetailFragment"
+        android:name="com.example.simpsons.features.presentation.detail.SimpsonsDetailFragment"
         android:label="SimpsonsDetailFragment"
         tools:layout="@layout/fragment_detail" >
         <argument
