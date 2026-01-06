@@ -1,4 +1,4 @@
-package com.example.simpsons.core.api
+package com.example.simpsons.core.data.remote.api
 
 import org.koin.core.annotation.Single
 import retrofit2.Retrofit

@@ -2,7 +2,7 @@ package com.example.simpsons.features.data.local.xml
 
 import com.example.simpsons.core.data.local.xml.XmlCacheStorage
 import com.example.simpsons.core.data.local.xml.policies.CachePolicy
-import com.example.simpsons.core.errors.ErrorApp
+import com.example.simpsons.core.domain.ErrorApp
 import com.example.simpsons.core.providers.TimeProvider
 import com.example.simpsons.features.domain.Simpson
 import org.koin.core.annotation.Single

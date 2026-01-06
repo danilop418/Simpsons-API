@@ -2,8 +2,8 @@ package com.example.simpsons.features.data
 
 import com.example.simpsons.features.data.local.mem.SimpsonsMemLocalDataSource
 import com.example.simpsons.features.data.local.xml.SimpsonsXmlLocalDataSource
-import com.example.simpsons.features.data.remote.api.SimpsonsApiRemoteDataSource
-import com.example.simpsons.features.data.remote.api.toModel
+import com.example.simpsons.features.data.remote.SimpsonsApiRemoteDataSource
+import com.example.simpsons.features.data.remote.toModel
 import com.example.simpsons.features.domain.Simpson
 import com.example.simpsons.features.domain.SimpsonsRepository
 import org.koin.core.annotation.Single

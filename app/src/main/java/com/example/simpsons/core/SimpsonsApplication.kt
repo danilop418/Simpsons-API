@@ -1,4 +1,4 @@
-package com.example.simpsons
+package com.example.simpsons.core
 
 import android.app.Application
 import com.example.simpsons.core.di.AppModule

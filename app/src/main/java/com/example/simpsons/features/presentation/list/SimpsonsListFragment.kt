@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simpsons.databinding.FragmentListBinding
+import com.example.simpsons.core.domain.ErrorApp
+import com.example.simpsons.core.presentation.errors.ErrorAppFactory
 import com.example.simpsons.features.domain.Simpson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,6 +20,8 @@ class SimpsonsListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: SimpsonsListViewModel by viewModel()
+
+    private val errorFactory by lazy { ErrorAppFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,25 +40,33 @@ class SimpsonsListFragment : Fragment() {
 
     private fun setUpObserver() {
         val observer = Observer<SimpsonsListViewModel.UiState> { uiState ->
-            if (uiState.isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
-                binding.recycler.visibility = View.GONE
-                binding.errorView.visibility = View.GONE
-            } else if (uiState.error != null) {
-                binding.progressBar.visibility = View.GONE
-                binding.recycler.visibility = View.GONE
-                binding.errorView.visibility = View.VISIBLE
-                binding.retry.setOnClickListener {
-                    viewModel.loadSimpsons()
-                }
-            } else if (uiState.simpsons != null) {
-                binding.progressBar.visibility = View.GONE
-                binding.errorView.visibility = View.GONE
-                binding.recycler.visibility = View.VISIBLE
-                setUpRecyclerView(uiState.simpsons)
+            when {
+                uiState.isLoading -> showLoading()
+                uiState.error != null -> showError(uiState.error)
+                uiState.simpsons != null -> showSimpsons(uiState.simpsons)
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recycler.visibility = View.GONE
+        binding.errorView.hide()
+    }
+
+    private fun showError(error: ErrorApp) {
+        binding.progressBar.visibility = View.GONE
+        binding.recycler.visibility = View.GONE
+        val errorUI = errorFactory.build(error) { viewModel.loadSimpsons() }
+        binding.errorView.render(errorUI)
+    }
+
+    private fun showSimpsons(simpsons: List<Simpson>) {
+        binding.progressBar.visibility = View.GONE
+        binding.errorView.hide()
+        binding.recycler.visibility = View.VISIBLE
+        setUpRecyclerView(simpsons)
     }
 
     private fun setUpRecyclerView(simpsonsList: List<Simpson>) {

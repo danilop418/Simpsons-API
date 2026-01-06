@@ -1,7 +1,8 @@
-package com.example.simpsons.features.data.remote.api
+package com.example.simpsons.features.data.remote
 
-import com.example.simpsons.core.api.ApiClient
-import com.example.simpsons.core.api.apiCall
+import com.example.simpsons.core.data.remote.api.ApiClient
+import com.example.simpsons.core.data.remote.api.apiCall
+import com.example.simpsons.features.data.remote.SimpsonsApiService
 import org.koin.core.annotation.Single
 
 @Single

@@ -12,4 +12,11 @@
     <string name="detail_name_label">Name:</string>
     <string name="detail_phrase_label">Phrase:</string>
     <string name="the_simpsons_app">The Simpsons App</string>
+
+    <string name="title_error_connection">Sin conexión</string>
+    <string name="description_error_connection">Revisa tu conexión a internet e inténtalo de nuevo.</string>
+    <string name="title_error_server">Error del servidor</string>
+    <string name="description_error_server">Ha ocurrido un error en el servidor. Inténtalo más tarde.</string>
+    <string name="title_error_unknown">Error desconocido</string>
+    <string name="description_error_unknown">Ha ocurrido un error inesperado. Inténtalo de nuevo.</string>
 </resources>

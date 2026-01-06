@@ -1,4 +1,4 @@
-package com.example.simpsons.features.data.remote.api
+package com.example.simpsons.features.data.remote
 
 import retrofit2.Response
 import retrofit2.http.GET

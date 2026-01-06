@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.simpsons.databinding.FragmentDetailBinding
+import com.example.simpsons.core.domain.ErrorApp
+import com.example.simpsons.core.presentation.errors.ErrorAppFactory
 import com.example.simpsons.features.domain.Simpson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,8 @@ class SimpsonsDetailFragment : Fragment() {
     private val args: SimpsonsDetailFragmentArgs by navArgs()
 
     private val viewModel: SimpsonsDetailViewModel by viewModel()
+
+    private val errorFactory by lazy { ErrorAppFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,25 +42,26 @@ class SimpsonsDetailFragment : Fragment() {
 
     private fun setUpObserver() {
         val observer = Observer<SimpsonsDetailViewModel.UiState> { uiState ->
-            if (uiState.isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
-                binding.detailContent.visibility = View.GONE
-                binding.errorView.visibility = View.GONE
-            } else if (uiState.error != null) {
-                binding.progressBar.visibility = View.GONE
-                binding.detailContent.visibility = View.GONE
-                binding.errorView.visibility = View.VISIBLE
-                binding.retry.setOnClickListener {
-                    viewModel.loadSimpson(args.simpsonId)
-                }
-            } else if (uiState.simpson != null) {
-                binding.progressBar.visibility = View.GONE
-                binding.errorView.visibility = View.GONE
-                binding.detailContent.visibility = View.VISIBLE
-                showSimpsonDetail(uiState.simpson)
+            when {
+                uiState.isLoading -> showLoading()
+                uiState.error != null -> showError(uiState.error)
+                uiState.simpson != null -> showSimpsonDetail(uiState.simpson)
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.detailContent.visibility = View.GONE
+        binding.errorView.hide()
+    }
+
+    private fun showError(error: ErrorApp) {
+        binding.progressBar.visibility = View.GONE
+        binding.detailContent.visibility = View.GONE
+        val errorUI = errorFactory.build(error) { viewModel.loadSimpson(args.simpsonId) }
+        binding.errorView.render(errorUI)
     }
 
     private fun showSimpsonDetail(simpson: Simpson) {

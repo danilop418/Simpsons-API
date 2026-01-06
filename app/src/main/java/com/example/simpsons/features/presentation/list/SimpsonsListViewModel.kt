@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.simpsons.core.errors.ErrorApp
+import com.example.simpsons.core.domain.ErrorApp
 import com.example.simpsons.features.domain.usecases.FetchSimpsonsUseCase
 import com.example.simpsons.features.domain.Simpson
 import kotlinx.coroutines.launch
