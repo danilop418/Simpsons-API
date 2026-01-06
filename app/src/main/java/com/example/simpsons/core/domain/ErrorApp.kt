@@ -1,4 +1,4 @@
-package com.example.simpsons.core.errors
+package com.example.simpsons.core.domain
 
 sealed class ErrorApp: Throwable() {
 

@@ -1,4 +1,4 @@
-package com.example.simpsons.features
+package com.example.simpsons.core.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

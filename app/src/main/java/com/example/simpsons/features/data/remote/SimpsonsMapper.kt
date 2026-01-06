@@ -1,4 +1,4 @@
-package com.example.simpsons.features.data.remote.api
+package com.example.simpsons.features.data.remote
 
 import com.example.simpsons.features.domain.Simpson
 

@@ -1,6 +1,6 @@
-package com.example.simpsons.core.api
+package com.example.simpsons.core.data.remote.api
 
-import com.example.simpsons.core.errors.ErrorApp
+import com.example.simpsons.core.domain.ErrorApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
