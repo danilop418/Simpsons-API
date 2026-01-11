@@ -65,7 +65,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.annotations)
