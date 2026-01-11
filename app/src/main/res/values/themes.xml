@@ -49,8 +49,8 @@
     </style>
 
     <style name="Theme.Simpsons.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#0F1B2D</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
