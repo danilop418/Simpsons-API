@@ -50,7 +50,6 @@ class SimpsonsListFragment : Fragment() {
     }
 
     private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE
         binding.errorView.hide()
     }
