@@ -20,4 +20,5 @@
     <string name="description_error_server">Ha ocurrido un error en el servidor. Inténtalo más tarde.</string>
     <string name="title_error_unknown">Error desconocido</string>
     <string name="description_error_unknown">Ha ocurrido un error inesperado. Inténtalo de nuevo.</string>
+    <string name="go_to_detail">Ver detalle</string>
 </resources>

@@ -13,8 +13,9 @@ class SimpsonsAdapter(private val dataset: List<Simpson>,
         RecyclerView.ViewHolder(binding.root) {
         fun bind(simpson: Simpson, onItemClick: (Simpson) -> Unit) {
             binding.name.text = simpson.name
-            binding.image.contentDescription = simpson.imageUrl
-            binding.image.load(simpson.imageUrl) {
+            binding.description.text = simpson.phrase
+            binding.avatar.contentDescription = simpson.name
+            binding.avatar.load(simpson.imageUrl) {
                 crossfade(true)
             }
             binding.root.setOnClickListener {
