@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -23,6 +25,12 @@ class SimpsonsListFragment : Fragment() {
 
     private val errorFactory by lazy { ErrorAppFactory(requireContext()) }
 
+    private val adapter by lazy {
+        SimpsonsAdapter { simpson -> navigateToDetail(simpson.id) }
+    }
+
+    private var allSimpsons: List<Simpson> = emptyList()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,8 +42,58 @@ class SimpsonsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
+        setUpSearchView()
+        setUpBackPressHandler()
         setUpObserver()
         viewModel.loadSimpsons()
+    }
+
+    private fun setUpRecyclerView() {
+        binding.recycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = this@SimpsonsListFragment.adapter
+        }
+    }
+
+    private fun setUpSearchView() {
+        binding.searchView.setupWithSearchBar(binding.searchBar)
+
+        binding.searchView.editText.addTextChangedListener { text ->
+            filterList(text?.toString().orEmpty())
+        }
+
+        binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
+            val query = binding.searchView.text.toString()
+            binding.searchBar.setText(query)
+            binding.searchView.hide()
+            filterList(query)
+            false
+        }
+    }
+
+    private fun setUpBackPressHandler() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.searchView.isShowing) {
+                    binding.searchView.hide()
+                } else {
+                    isEnabled = false
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
+    private fun filterList(query: String) {
+        val filtered = if (query.isBlank()) {
+            allSimpsons
+        } else {
+            allSimpsons.filter { it.name.contains(query, ignoreCase = true) }
+        }
+        adapter.submitList(filtered)
     }
 
     private fun setUpObserver() {
@@ -50,6 +108,7 @@ class SimpsonsListFragment : Fragment() {
     }
 
     private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE
         binding.errorView.hide()
     }
@@ -62,20 +121,11 @@ class SimpsonsListFragment : Fragment() {
     }
 
     private fun showSimpsons(simpsons: List<Simpson>) {
+        allSimpsons = simpsons
         binding.progressBar.visibility = View.GONE
         binding.errorView.hide()
         binding.recycler.visibility = View.VISIBLE
-        setUpRecyclerView(simpsons)
-    }
-
-    private fun setUpRecyclerView(simpsonsList: List<Simpson>) {
-        val adapter = SimpsonsAdapter(simpsonsList) { simpson ->
-            navigateToDetail(simpson.id)
-        }
-        binding.recycler.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
-        }
+        adapter.submitList(simpsons)
     }
 
     private fun navigateToDetail(simpsonId: String) {
