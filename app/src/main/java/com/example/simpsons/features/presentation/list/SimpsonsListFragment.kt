@@ -1,5 +1,6 @@
 package com.example.simpsons.features.presentation.list
 
+import SimpsonWithFavorite
 import SimpsonsAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simpsons.databinding.FragmentListBinding
 import com.example.simpsons.core.domain.ErrorApp
 import com.example.simpsons.core.presentation.errors.ErrorAppFactory
-import com.example.simpsons.features.domain.Simpson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SimpsonsListFragment : Fragment() {
@@ -26,10 +26,13 @@ class SimpsonsListFragment : Fragment() {
     private val errorFactory by lazy { ErrorAppFactory(requireContext()) }
 
     private val adapter by lazy {
-        SimpsonsAdapter { simpson -> navigateToDetail(simpson.id) }
+        SimpsonsAdapter(
+            onItemClick = { simpson -> navigateToDetail(simpson.id) },
+            onFavoriteClick = { simpson -> viewModel.toggleFavorite(simpson) }
+        )
     }
 
-    private var allSimpsons: List<Simpson> = emptyList()
+    private var allSimpsons: List<SimpsonWithFavorite> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +47,7 @@ class SimpsonsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         setUpSearchView()
+        setUpFilterChip()
         setUpBackPressHandler()
         setUpObserver()
         viewModel.loadSimpsons()
@@ -72,6 +76,12 @@ class SimpsonsListFragment : Fragment() {
         }
     }
 
+    private fun setUpFilterChip() {
+        binding.chipFavorites.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setFavoritesFilter(isChecked)
+        }
+    }
+
     private fun setUpBackPressHandler() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -91,7 +101,7 @@ class SimpsonsListFragment : Fragment() {
         val filtered = if (query.isBlank()) {
             allSimpsons
         } else {
-            allSimpsons.filter { it.name.contains(query, ignoreCase = true) }
+            allSimpsons.filter { it.simpson.name.contains(query, ignoreCase = true) }
         }
         adapter.submitList(filtered)
     }
@@ -101,7 +111,7 @@ class SimpsonsListFragment : Fragment() {
             when {
                 uiState.isLoading -> showLoading()
                 uiState.error != null -> showError(uiState.error)
-                uiState.simpsons != null -> showSimpsons(uiState.simpsons)
+                uiState.simpsons != null -> showSimpsons(uiState.simpsons, uiState.showOnlyFavorites)
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
@@ -120,11 +130,12 @@ class SimpsonsListFragment : Fragment() {
         binding.errorView.render(errorUI)
     }
 
-    private fun showSimpsons(simpsons: List<Simpson>) {
+    private fun showSimpsons(simpsons: List<SimpsonWithFavorite>, showOnlyFavorites: Boolean) {
         allSimpsons = simpsons
         binding.progressBar.visibility = View.GONE
         binding.errorView.hide()
         binding.recycler.visibility = View.VISIBLE
+        binding.chipFavorites.isChecked = showOnlyFavorites
         adapter.submitList(simpsons)
     }
 
