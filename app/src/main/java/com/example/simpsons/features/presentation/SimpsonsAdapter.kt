@@ -1,13 +1,15 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpsons.features.domain.Simpson
 import coil.load
 import com.example.simpsons.databinding.ViewSimpsonsItemBinding
 
-class SimpsonsAdapter(private val dataset: List<Simpson>,
-                      private val onItemClick: (Simpson) -> Unit
-) : RecyclerView.Adapter<SimpsonsAdapter.ViewHolder>() {
+class SimpsonsAdapter(
+    private val onItemClick: (Simpson) -> Unit
+) : ListAdapter<Simpson, SimpsonsAdapter.ViewHolder>(SimpsonDiffCallback()) {
 
     class ViewHolder(private val binding: ViewSimpsonsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -34,9 +36,16 @@ class SimpsonsAdapter(private val dataset: List<Simpson>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataset[position], onItemClick)
+        holder.bind(getItem(position), onItemClick)
     }
 
-    override fun getItemCount() = dataset.size
+    private class SimpsonDiffCallback : DiffUtil.ItemCallback<Simpson>() {
+        override fun areItemsTheSame(oldItem: Simpson, newItem: Simpson): Boolean {
+            return oldItem.id == newItem.id
+        }
 
+        override fun areContentsTheSame(oldItem: Simpson, newItem: Simpson): Boolean {
+            return oldItem == newItem
+        }
     }
+}

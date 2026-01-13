@@ -21,4 +21,5 @@
     <string name="title_error_unknown">Error desconocido</string>
     <string name="description_error_unknown">Ha ocurrido un error inesperado. Inténtalo de nuevo.</string>
     <string name="go_to_detail">Ver detalle</string>
+    <string name="search_hint">Buscar personaje…</string>
 </resources>
