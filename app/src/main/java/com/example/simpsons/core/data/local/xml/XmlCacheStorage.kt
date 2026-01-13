@@ -52,6 +52,13 @@ class XmlCacheStorage<T : XmlModel>(
         }
     }
 
+    fun delete(id: String): Result<Boolean> {
+        return runCatching {
+            prefs.edit { remove(id) }
+            true
+        }
+    }
+
     fun clear() {
         prefs.edit { clear() }
     }
