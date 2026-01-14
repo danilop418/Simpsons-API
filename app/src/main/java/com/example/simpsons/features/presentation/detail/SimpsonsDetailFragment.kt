@@ -66,10 +66,18 @@ class SimpsonsDetailFragment : Fragment() {
 
     private fun showSimpsonDetail(simpson: Simpson) {
         binding.apply {
+            progressBar.visibility = View.GONE
+            detailContent.visibility = View.VISIBLE
             simpsonName.text = simpson.name
             simpsonPhrase.text = simpson.phrase
             simpsonImage.load(simpson.imageUrl) {
                 crossfade(true)
+            }
+            headerAvatar.load(simpson.imageUrl) {
+                crossfade(true)
+            }
+            buttonBack.setOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }

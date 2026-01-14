@@ -23,4 +23,5 @@
     <string name="go_to_detail">Ver detalle</string>
     <string name="search_hint">Buscar personaje…</string>
     <string name="favorites">Favoritos</string>
+    <string name="back_button">Volver</string>
 </resources>

@@ -10,18 +10,17 @@ suspend fun <T> apiCall(
     call: suspend () -> Response<T>
 ): Result<T> {
     return withContext(Dispatchers.IO) {
-        runCatching {
+        try {
             val response = call()
             if (response.isSuccessful && response.body() != null) {
                 Result.success(response.body()!!)
             } else {
                 Result.failure(ErrorApp.ServerErrorApp)
             }
-        }.getOrElse { exception ->
-            when (exception) {
-                is IOException -> Result.failure(ErrorApp.InternetConexionError)
-                else -> Result.failure(ErrorApp.ServerErrorApp)
-            }
+        } catch (e: IOException) {
+            Result.failure(ErrorApp.InternetConexionError)
+        } catch (e: Exception) {
+            Result.failure(ErrorApp.ServerErrorApp)
         }
     }
 }
