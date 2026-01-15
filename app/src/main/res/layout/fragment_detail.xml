@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_yellow">
+    android:background="?attr/colorSurface">
 
     <ScrollView
         android:id="@+id/detailContent"
@@ -25,66 +25,99 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="1dp"
                 app:cardBackgroundColor="@color/md_theme_surfaceContainerLowest">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="24dp"
                     android:orientation="vertical">
 
+                    <!-- Header with 3D Avatar and Title -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp">
+                        android:paddingHorizontal="16dp"
+                        android:paddingBottom="16dp">
 
-                        <ImageView
-                            android:id="@+id/headerAvatar"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/circle_primary"
-                            android:scaleType="fitCenter"
-                            android:contentDescription="@string/simpson_detail_image"
+                        <!-- Avatar container for 3D overflow effect -->
+                        <FrameLayout
+                            android:id="@+id/avatarContainer"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            tools:src="@tools:sample/avatars"/>
+                            app:layout_constraintBottom_toBottomOf="parent">
+
+                            <!-- Shadow circle -->
+                            <View
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_gravity="center"
+                                android:translationX="2dp"
+                                android:translationY="2dp"
+                                android:background="@drawable/circle_shadow_background" />
+
+                            <!-- Yellow background circle -->
+                            <View
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/circle_yellow_background" />
+
+                            <!-- Character Image -->
+                            <ImageView
+                                android:id="@+id/headerAvatar"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                android:contentDescription="@string/simpson_avatar"
+                                tools:src="@tools:sample/avatars"/>
+                        </FrameLayout>
 
                         <TextView
-                            android:id="@+id/headerTitle"
+                            android:id="@+id/simpsonName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="@string/app_name"
-                            android:textColor="@color/md_theme_onSurface"
-                            android:textSize="16sp"
+                            android:fontFamily="@font/simpsons_font"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="24sp"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@id/headerAvatar"
-                            app:layout_constraintTop_toTopOf="@id/headerAvatar"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintStart_toEndOf="@id/avatarContainer"
+                            app:layout_constraintTop_toTopOf="@id/avatarContainer"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/headerSubtitle"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="Homer Simpson" />
 
                         <TextView
                             android:id="@+id/headerSubtitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:text="@string/simpson_detail_details_title"
-                            android:textColor="@color/md_theme_onSurfaceVariant"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toEndOf="@id/headerAvatar"
-                            app:layout_constraintTop_toBottomOf="@id/headerTitle"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            app:layout_constraintStart_toStartOf="@id/simpsonName"
+                            app:layout_constraintTop_toBottomOf="@id/simpsonName"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/avatarContainer"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- Large Image -->
                     <ImageView
                         android:id="@+id/simpsonImage"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="8dp"
                         android:scaleType="fitCenter"
-                        android:background="@color/md_theme_surfaceContainerHigh"
+                        android:background="?attr/colorSurfaceContainerHigh"
                         android:contentDescription="@string/simpson_detail_image"
                         tools:src="@tools:sample/backgrounds/scenic"/>
 
@@ -92,41 +125,64 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="24dp">
 
+                        <!-- Chips for Attributes -->
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            app:singleLine="false">
+                            <!-- Chips added dynamically -->
+                        </com.google.android.material.chip.ChipGroup>
+
+                        <!-- Description Section -->
                         <TextView
-                            android:id="@+id/simpsonName"
+                            android:id="@+id/descriptionLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/md_theme_onSurface"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="Homer Simpson" />
+                            android:text="@string/simpson_detail_description_title"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_marginBottom="8dp"/>
 
+                        <TextView
+                            android:id="@+id/simpsonDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:lineSpacingMultiplier="1.3"
+                            android:layout_marginBottom="24dp"
+                            tools:text="Homer Jay Simpson is the main protagonist of the American animated sitcom The Simpsons." />
+
+                        <!-- Phrase Section -->
                         <TextView
                             android:id="@+id/phraseLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/simpson_detail_phrase_title"
-                            android:textColor="@color/md_theme_onSurfaceVariant"
-                            android:textSize="14sp" />
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_marginBottom="8dp"/>
 
                         <TextView
                             android:id="@+id/simpsonPhrase"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:textColor="@color/md_theme_onSurfaceVariant"
-                            android:textSize="14sp"
-                            android:lineSpacingMultiplier="1.4"
-                            tools:text="D'oh! Why do I always have to be the one to say something stupid?" />
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textStyle="italic"
+                            android:lineSpacingMultiplier="1.3"
+                            tools:text="D'oh!" />
 
+                        <!-- Back Button -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:gravity="end"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="32dp"
+                            android:gravity="end">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/buttonBack"
@@ -134,13 +190,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/back_button"/>
-
                         </LinearLayout>
 
                     </LinearLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
