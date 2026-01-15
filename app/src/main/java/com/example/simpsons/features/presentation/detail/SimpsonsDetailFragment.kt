@@ -82,8 +82,8 @@ class SimpsonsDetailFragment : Fragment() {
             imageLoader(simpsonImage)
 
             chipGroup.removeAllViews()
-            addChip(simpson.gender, chipGroup)
-            addChip(simpson.status, chipGroup)
+            addChip(getLocalizedGender(simpson.gender), chipGroup)
+            addChip(getLocalizedStatus(simpson.status), chipGroup)
             if (simpson.occupation != "Unknown" && simpson.occupation.isNotEmpty()) {
                 addChip(simpson.occupation, chipGroup)
             }
@@ -91,13 +91,13 @@ class SimpsonsDetailFragment : Fragment() {
             simpsonDescription.text = if (simpson.description.isNotEmpty()) {
                 simpson.description
             } else {
-                "No description available."
+                getString(com.example.simpsons.R.string.no_description_available)
             }
 
             simpsonPhrase.text = if (simpson.phrase.isNotEmpty()) {
                 "\"${simpson.phrase}\""
             } else {
-                "No phrase available."
+                getString(com.example.simpsons.R.string.no_phrase_available)
             }
 
             buttonBack.setOnClickListener {
@@ -106,8 +106,25 @@ class SimpsonsDetailFragment : Fragment() {
         }
     }
 
+    private fun getLocalizedGender(gender: String): String {
+        return when (gender.lowercase()) {
+            "male" -> getString(com.example.simpsons.R.string.gender_male)
+            "female" -> getString(com.example.simpsons.R.string.gender_female)
+            else -> gender
+        }
+    }
+
+    private fun getLocalizedStatus(status: String): String {
+        return when (status.lowercase()) {
+            "alive" -> getString(com.example.simpsons.R.string.status_alive)
+            "deceased" -> getString(com.example.simpsons.R.string.status_deceased)
+            "unknown" -> getString(com.example.simpsons.R.string.status_unknown)
+            else -> status
+        }
+    }
+
     private fun addChip(text: String, chipGroup: com.google.android.material.chip.ChipGroup) {
-        if (text.isEmpty() || text == "Unknown") return
+        if (text.isEmpty() || text.equals("Unknown", ignoreCase = true)) return
         
         val chip = com.google.android.material.chip.Chip(requireContext()).apply {
             this.text = text

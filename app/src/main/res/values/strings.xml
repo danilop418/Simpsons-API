@@ -24,5 +24,14 @@
     <string name="back_button">Volver</string>
     <string name="simpson_avatar">Avatar del personaje</string>
     <string name="simpson_detail_description_title">Descripción</string>
+    
+    <!-- Values for mapping -->
+    <string name="gender_male">Masculino</string>
+    <string name="gender_female">Femenino</string>
+    <string name="status_alive">Vivo</string>
+    <string name="status_deceased">Fallecido</string>
+    <string name="status_unknown">Desconocido</string>
+    <string name="occupation_unknown">Ocupación desconocida</string>
+    <string name="no_description_available">No hay descripción disponible.</string>
+    <string name="no_phrase_available">No hay frase disponible.</string>
 </resources>
-
