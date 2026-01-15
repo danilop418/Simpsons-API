@@ -1,1 +1,5 @@
 /build
+.agent
+.idea
+.kotlin
+.vscode

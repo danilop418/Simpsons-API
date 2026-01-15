@@ -68,18 +68,60 @@ class SimpsonsDetailFragment : Fragment() {
         binding.apply {
             progressBar.visibility = View.GONE
             detailContent.visibility = View.VISIBLE
+            
             simpsonName.text = simpson.name
-            simpsonPhrase.text = simpson.phrase
-            simpsonImage.load(simpson.imageUrl) {
-                crossfade(true)
+            
+            val imageLoader = { imageView: android.widget.ImageView ->
+                imageView.load(simpson.imageUrl) {
+                    crossfade(true)
+                    placeholder(com.google.android.material.R.drawable.mtrl_ic_error)
+                    error(com.google.android.material.R.drawable.mtrl_ic_error)
+                }
             }
-            headerAvatar.load(simpson.imageUrl) {
-                crossfade(true)
+            imageLoader(headerAvatar)
+            imageLoader(simpsonImage)
+
+            chipGroup.removeAllViews()
+            addChip(simpson.gender, chipGroup)
+            addChip(simpson.status, chipGroup)
+            if (simpson.occupation != "Unknown" && simpson.occupation.isNotEmpty()) {
+                addChip(simpson.occupation, chipGroup)
             }
+
+            simpsonDescription.text = if (simpson.description.isNotEmpty()) {
+                simpson.description
+            } else {
+                "No description available."
+            }
+
+            simpsonPhrase.text = if (simpson.phrase.isNotEmpty()) {
+                "\"${simpson.phrase}\""
+            } else {
+                "No phrase available."
+            }
+
             buttonBack.setOnClickListener {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
+    }
+
+    private fun addChip(text: String, chipGroup: com.google.android.material.chip.ChipGroup) {
+        if (text.isEmpty() || text == "Unknown") return
+        
+        val chip = com.google.android.material.chip.Chip(requireContext()).apply {
+            this.text = text
+            isCheckable = false
+            setEnsureMinTouchTargetSize(false)
+            val typedValue = android.util.TypedValue()
+            requireContext().theme.resolveAttribute(com.google.android.material.R.attr.colorSecondaryContainer, typedValue, true)
+            setChipBackgroundColorResource(typedValue.resourceId.takeIf { it != 0 } ?: android.R.color.darker_gray)
+            
+            if (typedValue.resourceId == 0) {
+                chipBackgroundColor = android.content.res.ColorStateList.valueOf(typedValue.data)
+            }
+        }
+        chipGroup.addView(chip)
     }
 
     override fun onDestroyView() {

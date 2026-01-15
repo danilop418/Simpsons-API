@@ -18,16 +18,44 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/avatar"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:scaleType="centerCrop"
+        <!-- Avatar container for 3D overflow effect -->
+        <FrameLayout
+            android:id="@+id/avatarContainer"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/CircleImageStyle"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Shadow circle for depth effect -->
+            <View
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:translationX="2dp"
+                android:translationY="2dp"
+                android:background="@drawable/circle_shadow_background" />
+
+            <!-- Yellow circle background -->
+            <View
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_yellow_background" />
+
+            <!-- Character image that overflows the circle -->
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/simpson_avatar"
+                tools:src="@tools:sample/avatars" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/name"
@@ -43,7 +71,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/description"
             app:layout_constraintEnd_toStartOf="@id/btnFavorite"
-            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintStart_toEndOf="@id/avatarContainer"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Homer Simpson" />
@@ -56,12 +84,12 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnFavorite"
-            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintStart_toEndOf="@id/avatarContainer"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="Safety Inspector at Springfield Nuclear Power Plant" />
 

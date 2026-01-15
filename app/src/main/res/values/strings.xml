@@ -6,13 +6,11 @@
     <string name="simpson_detail_details_title">Detalles</string>
     <string name="simpson_detail_image">Imagen del personaje</string>
     <string name="error_icon">Icono de error</string>
-    <string name="error_server">Error del servidor\nIntentelo más tarde</string>
+    <string name="error_server">Error del servidor\nInténtelo más tarde</string>
     <string name="error_network">Error de red\nRevise su conexión a internet</string>
     <string name="retry_button">Reintentar</string>
-    <string name="pincha_el_rosco">Pincha el rosco</string>
-    <string name="detail_name_label">Name:</string>
-    <string name="detail_phrase_label">Phrase:</string>
-    <string name="the_simpsons_app">The Simpsons App</string>
+
+    <string name="the_simpsons_app">La App de Los Simpsons</string>
 
     <string name="title_error_connection">Sin conexión</string>
     <string name="description_error_connection">Revisa tu conexión a internet e inténtalo de nuevo.</string>
@@ -24,4 +22,7 @@
     <string name="search_hint">Buscar personaje…</string>
     <string name="favorites">Favoritos</string>
     <string name="back_button">Volver</string>
+    <string name="simpson_avatar">Avatar del personaje</string>
+    <string name="simpson_detail_description_title">Descripción</string>
 </resources>
+

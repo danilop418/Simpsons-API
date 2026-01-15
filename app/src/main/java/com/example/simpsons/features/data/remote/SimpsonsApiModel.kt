@@ -9,5 +9,10 @@ data class SimpsonsApiModel(
     @SerializedName("portrait_path")
     val portraitPath: String,
 
-    val phrases: List<String>
+    val phrases: List<String>,
+
+    val description: String?,
+    val gender: String?,
+    val occupation: String?,
+    val status: String?
 )

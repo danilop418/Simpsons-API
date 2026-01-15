@@ -8,6 +8,10 @@ fun SimpsonsApiModel.toModel(): Simpson {
         id = this.id.toString(),
         name = this.name,
         phrase = this.phrases.firstOrNull() ?: "",
-        imageUrl = fullImageUrl
+        imageUrl = fullImageUrl,
+        description = this.description ?: "",
+        gender = this.gender ?: "",
+        occupation = this.occupation ?: "",
+        status = this.status ?: ""
     )
 }
