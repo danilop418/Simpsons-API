@@ -8,7 +8,7 @@ import com.example.simpsons.features.domain.Simpson
 import com.example.simpsons.features.domain.SimpsonsRepository
 import org.koin.core.annotation.Single
 
-@Single
+@Single(binds = [SimpsonsRepository::class])
 class SimpsonsDataRepository(
     private val memLocalDataSource: SimpsonsMemLocalDataSource,
     private val xmlLocalDataSource: SimpsonsXmlLocalDataSource,
@@ -39,5 +39,15 @@ class SimpsonsDataRepository(
         return apiRemoteDataSource.getSimpsonById(id).map { apiModel ->
             apiModel.toModel()
         }
+    }
+
+    override fun getSimpsonsPager(): kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<Simpson>> {
+        return androidx.paging.Pager(
+            config = androidx.paging.PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { apiRemoteDataSource.getPagingSource() }
+        ).flow
     }
 }

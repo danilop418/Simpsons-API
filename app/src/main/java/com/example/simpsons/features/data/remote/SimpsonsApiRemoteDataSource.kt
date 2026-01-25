@@ -13,12 +13,16 @@ class SimpsonsApiRemoteDataSource(private val apiClient: ApiClient) {
     }
 
     suspend fun getSimpsons(): Result<List<SimpsonsApiModel>> {
-        return apiCall { apiService.findAll() }.map { response ->
+        return apiCall { apiService.findAll(1) }.map { response ->
             response.results
         }
     }
 
     suspend fun getSimpsonById(id: String): Result<SimpsonsApiModel> {
         return apiCall { apiService.findById(id) }
+    }
+
+    fun getPagingSource(): androidx.paging.PagingSource<Int, com.example.simpsons.features.domain.Simpson> {
+        return com.example.simpsons.features.data.paging.SimpsonsPagingSource(apiService)
     }
 }

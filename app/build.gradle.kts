@@ -71,5 +71,6 @@ dependencies {
     implementation(libs.koin.annotations)
     ksp(libs.koin.ksp.compiler)
 
+    implementation("androidx.paging:paging-runtime:3.2.1")
     implementation(libs.kotlinx.serialization.json)
 }
